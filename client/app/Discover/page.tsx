@@ -54,6 +54,13 @@ const DiscoverPage = () => {
   // Check authentication status
   useEffect(() => {
     const checkAuth = async () => {
+      // For local development, bypass auth if environment allows it
+      if (process.env.NODE_ENV === "development" && !process.env.NEXT_PUBLIC_ENFORCE_AUTH) {
+        console.log("Development mode: bypassing auth for testing");
+        setIsAuthChecked(true);
+        return;
+      }
+
       try {
         const { data: { session }, error } = await supabase.auth.getSession();
         

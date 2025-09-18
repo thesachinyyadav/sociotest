@@ -1,8 +1,12 @@
 // Centralized configuration for API URLs and environment variables
 export const config = {
-  // API URLs
-  API_URL: process.env.NEXT_PUBLIC_API_URL || "https://sociotest-production.up.railway.app",
-  APP_URL: process.env.NEXT_PUBLIC_APP_URL || "https://sociotest.vercel.app",
+  // API URLs - Use localhost in development
+  API_URL: process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === "production" 
+    ? "https://your-backend-url.com" 
+    : "http://localhost:8000"),
+  APP_URL: process.env.NEXT_PUBLIC_APP_URL || (process.env.NODE_ENV === "production"
+    ? "https://your-frontend-url.com"
+    : "http://localhost:3000"),
   
   // Supabase Configuration
   SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL || "https://vkappuaapscvteexogtp.supabase.co",
