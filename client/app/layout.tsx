@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { DM_Sans } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
 import NavigationBar from "./_components/NavigationBar";
+import { config, getApiUrl } from "@/lib/config";
 
 import {
   EventsProvider,
@@ -12,11 +12,6 @@ import {
 
 // Force dynamic rendering for this layout
 export const dynamic = 'force-dynamic';
-
-const DMSans = DM_Sans({
-  variable: "--font-dm-sans",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "SOCIO",
@@ -107,7 +102,7 @@ async function getInitialEventsData() {
   let error: string | null = null;
 
   try {
-    const response = await fetch("https://sociotest-production.up.railway.app/api/events", {
+    const response = await fetch(getApiUrl("/api/events"), {
       cache: "no-cache", // Changed from force-cache to no-cache for debugging
     });
 
@@ -201,7 +196,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${DMSans.variable} font-sans antialiased bg-[#FFFFFF] text-[#101010]`}
+        className={`font-sans antialiased bg-[#FFFFFF] text-[#101010]`}
       >
         <AuthProvider>
           <EventsProvider

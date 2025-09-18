@@ -2,9 +2,14 @@ import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const publicPaths = ["/", "/auth/callback", "/error", "/about", "/auth"];
+const publicPaths = ["/", "/auth/callback", "/error", "/about", "/auth", "/Discover", "/discover"];
 
 export async function middleware(req: NextRequest) {
+  // For development, bypass all middleware checks
+  if (process.env.NODE_ENV === "development") {
+    return NextResponse.next();
+  }
+
   const res = NextResponse.next();
   const supabase = createMiddlewareClient({ req, res });
 
